@@ -1,6 +1,6 @@
 # Flask discoverer
 
-Flask extension that supports the introspection of resources and resource attributes such as ratelimits or permissions. After initializing, these attributes will be published as JSON via a a `/resources` endpoint.
+Flask extension that supports the introspection of resources and resource attributes such as ratelimits or permissions. After initializing, these attributes will be published as JSON via a `/resources` endpoint.
 
 ## Initialization
     from flask import Flask
