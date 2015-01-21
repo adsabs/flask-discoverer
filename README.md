@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/adsabs/solr-service.svg?branch=master)](https://travis-ci.org/adsabs/solr-service)
+[![Build Status](https://travis-ci.org/adsabs/flask-discoverer.svg?branch=master)](https://travis-ci.org/adsabs/flask-discoverer)
 
 # Flask discoverer
 
