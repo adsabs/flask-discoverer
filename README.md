@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/adsabs/solr-service.svg?branch=master)](https://travis-ci.org/adsabs/solr-service)
+
 # Flask discoverer
 
 Flask extension that supports the introspection of resources and resource attributes such as ratelimits or permissions. After initializing, these attributes will be published as JSON via a `/resources` endpoint.

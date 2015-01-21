@@ -26,9 +26,12 @@ setup(
     platforms='any',
     install_requires=[
         'Flask',
-        'flask-testing'
     ],
     test_suite='tests',
+    tests_require = [
+        'flask-testing',
+        'flask-restful',
+    ],
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
