@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 flask-discoverer
 -------------
@@ -27,6 +28,7 @@ setup(
         'Flask',
         'flask-testing'
     ],
+    test_suite='tests',
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
