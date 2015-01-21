@@ -11,7 +11,7 @@ setup(
     name='flask-discoverer',
     version='0.0.1',
     url='http://github.com/adsabs/flask-discoverer/',
-    license='BSD',
+    license='MIT',
     author='Vladimir Sudilovsky',
     author_email='vsudilovsky@cfa.harvard.edu',
     description='Flask API autodiscovery',
@@ -24,12 +24,13 @@ setup(
     include_package_data=True,
     platforms='any',
     install_requires=[
-        'Flask'
+        'Flask',
+        'flask-testing'
     ],
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
+        'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
