@@ -1,4 +1,4 @@
-from flask import current_app
+from flask import current_app, Response
 import json
 
 DEFAULT_CONFIG = {
@@ -51,7 +51,7 @@ class Discoverer(object):
           resources[rule.rule].update({key:f.view_class.__getattribute__(f.view_class,key)})
         if hasattr(f,key):
           resources[rule.rule].update({key:f.__getattribute__(key)})
-    return json.dumps(resources)
+    return Response(json.dumps(resources), mimetype='application/json')
 
 def advertise(*args,**kwargs):
   def decorator(f):
