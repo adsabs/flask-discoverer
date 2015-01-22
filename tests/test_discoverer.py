@@ -61,7 +61,7 @@ class TestFlaskRestfulBasedApp(TestCase):
     self.assertStatus(r,405)
 
   def test_resources(self):
-    r = self.client.get('/resources')
+    r = self.client.get(self.app.config['DISCOVERER_PUBLISH_ENDPOINT'])
     self.assertEqual(r.json,self.expected_resources)
 
 
@@ -99,7 +99,7 @@ class TestFunctionBasedViewsApp(TestCase):
     return app
 
   def test_resources(self):
-    r = self.client.get('/resources')
+    r = self.client.get(self.app.config['DISCOVERER_PUBLISH_ENDPOINT'])
     self.assertEqual(r.json,self.expected_resources)
 
 
@@ -143,7 +143,7 @@ class TestClassBasedViewsApp(TestCase):
     return app
 
   def test_resources(self):
-    r = self.client.get('/resources')
+    r = self.client.get(self.app.config['DISCOVERER_PUBLISH_ENDPOINT'])
     self.assertEqual(r.json,self.expected_resources)    
 
 if __name__ == '__main__':
