@@ -10,7 +10,7 @@ from setuptools import setup
 
 setup(
     name='flask-discoverer',
-    version='0.0.1',
+    version='0.0.2',
     url='http://github.com/adsabs/flask-discoverer/',
     license='MIT',
     author='Vladimir Sudilovsky',
