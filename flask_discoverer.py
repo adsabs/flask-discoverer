@@ -46,23 +46,34 @@ class Discoverer(object):
             advertised = f._advertised if hasattr(f,'_advertised') else []
             resources[rule.rule].update(description=f.__doc__)
             resources[rule.rule].update(methods=list(rule.methods))
-            for key in advertised:
-                if hasattr(f,'view_class'):
-                    resources[rule.rule].update({key:f.view_class.__getattribute__(f.view_class,key)})
-                if hasattr(f,key):
-                    resources[rule.rule].update({key:f.__getattribute__(key)})
+            for _dict in advertised:
+                # Try to query the view_class for the attribute, if it exists
+                k,v = _dict.items()[0]
+                if v is None:
+                    try:
+                        if hasattr(f,'view_class'):
+                            t = f.view_class
+                            v = t.__getattribute__(t,k)
+                        else:
+                            v = f.__getattribute__(f,k)
+                    except AttributeError:
+                        pass # Lookup didn't return anything; keep None
+
+                resources[rule.rule].update({k:v})
         return Response(json.dumps(resources), mimetype='application/json')
 
 def advertise(*args,**kwargs):
     def decorator(f):
-        #Set the function attribute
+        if not hasattr(f,'_advertised'):
+            f.__setattr__('_advertised',[])
         for key,value in kwargs.iteritems():
-            f.__setattr__(key,value)
-        #Keep track of which attributes need to be advertised
-        for key in kwargs.keys()+list(args):
-            if not hasattr(f,'_advertised'):
-                f._advertised = []
-            f._advertised.append(key)
+            f._advertised.append({key:value})
+        for arg in args:
+            try:
+                val = f.__getattr__(arg)
+            except AttributeError:
+                val = None
+            f._advertised.append({arg:val})
         return f
     return decorator
 

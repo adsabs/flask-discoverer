@@ -18,11 +18,11 @@ class TestDecorator(unittest.TestCase):
 
     def test_advertiseAttributes(self):
         '''
-        Test advertising, but not actually setting, attributes of a function
+        Test advertising "empty" attributes
         '''
         self.testfunction = advertise('thisattr')(self.testfunction)
         self.assertRaises(AttributeError,lambda: self.testfunction.thisattr)
-        self.assertEqual(self.testfunction._advertised,['thisattr'])
+        self.assertEqual(self.testfunction._advertised,[{'thisattr':None}])
 
         res = self.testfunction(1,2,3)
         self.assertEqual(res,'1|2|3')
@@ -33,7 +33,7 @@ class TestDecorator(unittest.TestCase):
 
         self.assertRaises(AttributeError,lambda: testfunction.decor1)
         self.assertRaises(AttributeError,lambda: testfunction.decor2)
-        self.assertItemsEqual(testfunction._advertised,['decor1','decor2'])
+        self.assertItemsEqual(testfunction._advertised,[{'decor1':None},{'decor2':None}])
 
         res = testfunction(1,2,3)
         self.assertEqual(res,'1|2|3')    
@@ -45,13 +45,10 @@ class TestDecorator(unittest.TestCase):
         the operators.
         '''
         self.testfunction = advertise(thisattr='foo')(self.testfunction)
-        self.assertEqual(self.testfunction.thisattr,'foo')
-        self.assertEqual(self.testfunction._advertised,['thisattr'])
+        self.assertEqual(self.testfunction._advertised,[{'thisattr':'foo'}])
 
         self.testfunction = advertise(thisattr2='foo2')(self.testfunction)
-        self.assertEqual(self.testfunction.thisattr,'foo')
-        self.assertEqual(self.testfunction.thisattr2,'foo2')
-        self.assertItemsEqual(self.testfunction._advertised,['thisattr','thisattr2'])
+        self.assertItemsEqual(self.testfunction._advertised,[{'thisattr':'foo'},{'thisattr2':'foo2'}])
 
         res = self.testfunction(1,2,3)
         self.assertEqual(res,'1|2|3')
@@ -60,9 +57,7 @@ class TestDecorator(unittest.TestCase):
         def testfunction(a,b,c):
             return "{a}|{b}|{c}".format(a=a,b=b,c=c)
 
-        self.assertEqual(testfunction.decor1,'foo')
-        self.assertEqual(testfunction.decor2,'bar')
-        self.assertItemsEqual(testfunction._advertised,['decor1','decor2'])
+        self.assertItemsEqual(testfunction._advertised,[{'decor1':'foo'},{'decor2':'bar'}])
 
         res = testfunction(1,2,3)
         self.assertEqual(res,'1|2|3')
