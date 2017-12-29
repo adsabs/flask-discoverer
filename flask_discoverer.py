@@ -27,7 +27,7 @@ class Discoverer(object):
         app.extensions['discoverer'] = self
         config = app.config
 
-        for k,v in DEFAULT_CONFIG.iteritems():
+        for k,v in DEFAULT_CONFIG.items():
             config.setdefault(k,v)
             if k in self.kwargs:
                 config.update({k:self.kwargs[k]})
