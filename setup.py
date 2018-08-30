@@ -5,12 +5,31 @@ flask-discoverer
 
 Flask extension that enables autodiscovery and broadcast of API endpoints
 """
-from setuptools import setup
+import os
+from subprocess import Popen, PIPE
+
+try:
+    from setuptools import setup, find_packages
+except ImportError:
+    from distutils.core import setup, find_packages
+
+with open('requirements.txt') as f:
+    required = f.read().splitlines()
+
+def get_git_version(default="v0.0.1"):
+    try:
+        p = Popen(['git', 'describe', '--tags'], stdout=PIPE, stderr=PIPE)
+        p.stderr.close()
+        line = p.stdout.readlines()[0]
+        line = line.strip()
+        return line
+    except:
+        return default
 
 
 setup(
     name='flask-discoverer',
-    version='0.0.1',
+    version=get_git_version(default="v0.0.1"),
     url='http://github.com/adsabs/flask-discoverer/',
     license='MIT',
     author='Vladimir Sudilovsky',
@@ -24,14 +43,8 @@ setup(
     zip_safe=False,
     include_package_data=True,
     platforms='any',
-    install_requires=[
-        'Flask',
-    ],
+    install_requires=required,
     test_suite='tests',
-    tests_require = [
-        'flask-testing',
-        'flask-restful',
-    ],
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
