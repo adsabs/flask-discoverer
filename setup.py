@@ -16,6 +16,9 @@ except ImportError:
 with open('requirements.txt') as f:
     required = f.read().splitlines()
 
+with open('dev-requirements.txt') as f:
+    dev_required = f.read().splitlines()
+
 def get_git_version(default="v0.0.1"):
     try:
         p = Popen(['git', 'describe', '--tags'], stdout=PIPE, stderr=PIPE)
@@ -45,6 +48,7 @@ setup(
     platforms='any',
     install_requires=required,
     test_suite='tests',
+    tests_require = dev_required,
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
