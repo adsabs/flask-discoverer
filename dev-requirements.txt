@@ -1,0 +1,2 @@
+flask-testing==0.6.2
+Flask-RESTful==0.3.6
