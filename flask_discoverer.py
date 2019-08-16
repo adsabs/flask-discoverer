@@ -1,5 +1,6 @@
 from flask import current_app, Response
 import json
+import six
 
 DEFAULT_CONFIG = {
     'DISCOVERER_PUBLISH_ENDPOINT':'/resources',
@@ -48,7 +49,7 @@ class Discoverer(object):
             resources[rule.rule].update(methods=list(rule.methods))
             for _dict in advertised:
                 # Try to query the view_class for the attribute, if it exists
-                k,v = _dict.items()[0]
+                k,v = list(_dict.items())[0]
                 if v is None:
                     try:
                         if hasattr(f,'view_class'):
@@ -66,7 +67,7 @@ def advertise(*args,**kwargs):
     def decorator(f):
         if not hasattr(f,'_advertised'):
             f.__setattr__('_advertised',[])
-        for key,value in kwargs.iteritems():
+        for key,value in six.iteritems(kwargs):
             f._advertised.append({key:value})
         for arg in args:
             try:
