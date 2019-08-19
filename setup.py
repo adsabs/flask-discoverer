@@ -55,7 +55,7 @@ setup(
     license=u'MIT',
     platforms=u'any',
     py_modules=[u'flask_discoverer'],
-    test_suite=u'ytests',
+    test_suite=u'tests',
     tests_require=dev_required,
     version=get_git_version(default=u'v0.0.1'),
     zip_safe=False,
