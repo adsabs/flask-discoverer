@@ -13,11 +13,13 @@ try:
 except ImportError:
     from distutils.core import setup, find_packages
 
-with open('requirements.txt') as f:
-    required = f.read().splitlines()
+if os.path.isfile('requirements.txt'):
+    with open('requirements.txt') as f:
+        required = f.read().splitlines()
 
-with open(u'dev-requirements.txt') as f:
-    dev_required = f.read().splitlines()
+if os.path.isfile('dev-requirements.txt'):
+    with open(u'dev-requirements.txt') as f:
+        dev_required = f.read().splitlines()
 
 
 def get_git_version(default=u'v0.0.1'):
@@ -44,7 +46,9 @@ setup(
         u'Operating System :: OS Independent',
         u'Programming Language :: Python',
         u'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
-        u'Topic :: Software Development :: Libraries :: Python Modules'
+        u'Topic :: Software Development :: Libraries :: Python Modules',
+        u'Programming Language :: Python :: 2.7',
+        u'Programming Language :: Python :: 3.6',
     ],
     description=u'Flask API autodiscovery',
     include_package_data=True,
