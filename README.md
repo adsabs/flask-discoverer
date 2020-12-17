@@ -96,3 +96,24 @@ Flask-discoverer works with class based views such as `Flask.MethodView`. Use th
     #          'description': 'Scoped route docstring',
     #          'methods': ['HEAD','OPTIONS','GET'],
     #  },
+    
+## Releasing new version to pypi
+
+When a new release is ready, it should be uploaded to pypi. First, try the test environment:
+
+```
+python3 -m venv ./venv
+source venv/bin/activate
+pip install --upgrade setuptools wheel
+rm -rf dist/
+python3 setup.py sdist
+python3 setup.py bdist_wheel --universal
+pip install --upgrade twine
+twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+```
+
+Verify the [testing pypi repository](https://test.pypi.org/project/flask-discoverer/) and if everything looks good, you can proceed to upload to the [official repository](https://pypi.org/project/flask-discoverer/):
+
+```
+twine upload dist/*
+```
